@@ -47,10 +47,6 @@ function constructDNSRecord(request: Request): AddressableRecord {
 		throw new HttpError(422, 'The "hostname" parameter is required and cannot be empty.');
 	}
 
-	if (proxed === null || proxied === undefined) {
-		proxied = "false";
-	}
-
 	return {
 		content: ip,
 		name: hostname,
