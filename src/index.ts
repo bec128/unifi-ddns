@@ -37,6 +37,7 @@ function constructDNSRecord(request: Request): AddressableRecord {
 	const params = url.searchParams;
 	const ip = params.get('ip');
 	const hostname = params.get('hostname');
+	const proxied = params.get('proxied');
 
 	if (ip === null || ip === undefined) {
 		throw new HttpError(422, 'The "ip" parameter is required and cannot be empty.');
@@ -46,11 +47,16 @@ function constructDNSRecord(request: Request): AddressableRecord {
 		throw new HttpError(422, 'The "hostname" parameter is required and cannot be empty.');
 	}
 
+	if (proxed === null || proxied === undefined) {
+		proxied = "false";
+	}
+
 	return {
 		content: ip,
 		name: hostname,
 		type: ip.includes('.') ? 'A' : 'AAAA',
 		ttl: 1,
+		proxied: proxied,
 	};
 }
 
